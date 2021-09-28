@@ -6,13 +6,13 @@ function NavBar(){
             <div className="pt-3">
                 <ul>
                     <li>
-                    <Link className='btn btn-outline-dark btn-lg' to="/">Home</Link>
+                        <Link className='btn btn-outline-dark btn-lg' to="/">Home</Link>
                     </li>
                     <li>
-                    <Link className='btn btn-outline-dark btn-lg' to="/contacts">Contacts</Link>
+                        <Link className='btn btn-outline-dark btn-lg' to="/contacts">Contacts</Link>
                     </li>
                     <li>
-                    <Link className='btn btn-outline-dark btn-lg' to="/test">Pricing</Link>
+                        <Link className='btn btn-outline-dark btn-lg' to="/metrics">Metrics</Link>
                     </li>
                 </ul>
             </div>
