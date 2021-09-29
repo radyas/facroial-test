@@ -14,6 +14,11 @@ class ContactsController < ApplicationController
     end
   end
 
+  def show
+    contact = Contact.find(params[:id])
+    render json: contact
+  end
+
   def update
     contact = Contact.find(params[:id])
     contact.update(contact_args)
