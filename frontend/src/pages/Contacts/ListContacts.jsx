@@ -12,8 +12,9 @@ function ListContacts() {
     const headers = ['ID', 'First Name', "Last Name", "Email", "Phone", "Actions"]
 
     useEffect(() => {
-        let contacts = getAllContacts();
-        setData(contacts); 
+        getAllContacts().then((response) => {
+            setData(response.data);
+        })
     }, [])
 
     return (
