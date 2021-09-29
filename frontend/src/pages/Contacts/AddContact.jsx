@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import ContactForm from "../../components/Contacts/ContactForm";
+import { addContact } from "../../services/contactServices";
 
-const AddContact = () => {
+const AddContact = (props) => {
+
+  const [errors, setErrors] = useState({})
 
   const handleOnSubmit = (contact) => {
-    console.log(contact);
+    addContact(contact)
+    .then((response) => {
+      props.history.push('/contacts')
+    })
+    .catch((error) => {
+      setErrors(error.response.data)
+    })
     
-    //navigate back to previous page
-    window.history.back()
 
   };
 
   return (
     <React.Fragment>
-      <ContactForm handleOnSubmit={handleOnSubmit} />
+      <ContactForm handleOnSubmit={handleOnSubmit} errors={errors} />
     </React.Fragment>
   );
 };

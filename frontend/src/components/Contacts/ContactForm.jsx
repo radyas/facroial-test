@@ -1,39 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 const ContactForm = (props) => {
   const [contact, setContact] = useState({
-    firstName: props.contact ? props.contact.firstName : '',
-    lastName: props.contact ? props.contact.lastName : '',
-    email: props.contact ? props.contact.email : '',
-    phone: props.contact ? props.contact.phone : '',
+    id: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
   });
 
-  const [errorMsg, setErrorMsg] = useState('');
-  const { firstName, lastName, email, phone } = contact;
+  useEffect(() => {
+    setContact(props.contact)
+  }, [props.contact])
+
+  useEffect(() => {
+    setErrors(props.errors)
+  }, [props.errors])
+
+  const [errors, setErrors] = useState({});
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    const values = [firstName, lastName, email, phone];
-    let errorMsg = '';
-
-    const allFieldsFilled = values.every((field) => {
-      const value = `${field}`.trim();
-      return value !== '' && value !== '0';
-    });
-
-    if (allFieldsFilled) {
-      const contact = {
-        firstName,
-        lastName,
-        email,
-        phone
-      };
-      props.handleOnSubmit(contact);
-    } else {
-      errorMsg = 'Please fill out all the fields.';
-    }
-    setErrorMsg(errorMsg);
+    props.handleOnSubmit(contact);
+    
   };
 
   const handleInputChange = (event) => {
@@ -46,52 +36,64 @@ const ContactForm = (props) => {
 
   return (
     <div className="main-form">
-      {errorMsg && <p className="errorMsg">{errorMsg}</p>}
       <Form onSubmit={handleOnSubmit}>
+
         <Form.Group controlId="firstName">
           <Form.Label>First Name</Form.Label>
           <Form.Control
             className="input-control"
             type="text"
-            name="firstName"
-            value={firstName}
+            name="first_name"
+            value={ contact?.first_name || '' }
             placeholder="Enter First Name"
             onChange={handleInputChange}
-          />
+            required={true}
+            />
         </Form.Group>
+
         <Form.Group controlId="lastName" className='mt-3'>
           <Form.Label>Last Name</Form.Label>
           <Form.Control
             className="input-control"
             type="text"
-            name="lastName"
-            value={lastName}
+            name="last_name"
+            value={ contact?.last_name || '' }
             placeholder="Enter Last Name"
+            required={true}
             onChange={handleInputChange}
-          />
+            />
         </Form.Group>
+
         <Form.Group controlId="email" className='mt-3'>
-          <Form.Label>Email</Form.Label>
+          <Form.Label>
+            Email {errors.email && <span className="text-danger">{errors.email[0]}</span>}
+          </Form.Label>
           <Form.Control
             className="input-control"
             type="email"
             name="email"
-            value={email}
+            value={ contact?.email || '' }
             placeholder="Enter Email Address"
             onChange={handleInputChange}
+            required={true}
           />
         </Form.Group>
+
         <Form.Group controlId="phone" className='mt-3'>
-          <Form.Label>Phone Number</Form.Label>
+          <Form.Label>
+            Phone Number {errors.phone && <span className="errorMsg text-danger">{errors.phone[0]}</span>}
+          </Form.Label>
           <Form.Control
             className="input-control"
-            type="number"
+            type="text"
             name="phone"
-            value={phone}
+            value={ contact?.phone || '' }
             placeholder="Enter Phone Number"
             onChange={handleInputChange}
+            required={true}
           />
         </Form.Group>
+
         <div className="row justify-content-center">
             <div className="col-md-4">
                 <Button variant="outline-primary" type="submit" className="submit-btn mt-4">
