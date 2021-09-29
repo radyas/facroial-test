@@ -1,1 +1,3 @@
-# facroial-test
+# Factorial Assessment ReadMe
+
+### Deployment Instructions - Docker
