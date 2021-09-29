@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { deleteContact } from "../../services/contactServices";
 
 const ContactTable = (props) => {
