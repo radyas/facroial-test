@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_28_190127) do
+ActiveRecord::Schema.define(version: 2021_09_30_042452) do
 
   create_table "contact_edit_histories", force: :cascade do |t|
     t.string "attr"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 2021_09_28_190127) do
     t.text "email"
     t.string "phone", limit: 15
     t.index ["email"], name: "index_contacts_on_email", unique: true
+  end
+
+  create_table "metrics", force: :cascade do |t|
+    t.string "name"
+    t.integer "value"
+    t.datetime "timestamp"
   end
 
   add_foreign_key "contact_edit_histories", "contacts"
